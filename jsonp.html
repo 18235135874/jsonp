@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp</title>
+	<style>
+		*{
+			margin:0px;
+			padding:0px;
+			box-sizing:border-box;
+		}
+		body{
+			font-size:14px;
+			color:#000;
+			font-family:"Microsoft Yahei";
+		}
+		li{
+			list-style:none;
+		}
+		.logo{
+			width:270px;
+			height:129px;
+			margin:50px auto 10px auto;
+		}
+		#box{
+			width:500px;
+			height:36px;
+			margin:0px auto;
+		}
+		#txt{
+			width:350px;
+			height:32px;
+			outline:none;
+			float: left;
+			outline:none;
+		}
+		#btn{
+			width:100px;
+			height:32px;
+			background:#3385ff;
+			color:#fff;
+			border:1px solid #3385ff;
+			font-size:14px;
+			text-align:center;
+			outline:none;
+			float: left;
+			cursor:pointer;	
+		}
+		#list{
+			width:450px;
+			border-bottom:1px solid #ccc;
+			border-left:1px solid #ccc;
+			border-right:1px solid #ccc;
+			display:none;
+			clear: both;
+		}
+		#list li{
+			line-height:36px;
+		}
+		#list li a{
+			font-size:14px;
+			color:#000;
+			text-decoration:none;
+			display:block;
+		}
+		#list li a:hover{
+			background:#ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="logo">
+		<img src="https://www.baidu.com/img/bd_logo1.png" alt="" width="270" height="129">
+	</div>
+	<div id="box">
+		<input type="text" id="txt">
+		<input type="submit" id="btn" value="百度一下">
+		<ul id="list">
+		</ul>
+	</div>
+</body>
+<script>
+	var txt = document.getElementById("txt");
+	var list = document.getElementById("list");
+	var btn = document.getElementById("btn");
+	var box = document.getElementById("box");
+	txt.onkeyup=function(){
+		list.style.display="block";
+		var tValue=txt.value;
+		var tScript=document.createElement("script");
+		tScript.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+tValue+"&cb=fly";
+		console.log(tScript.src)
+		document.body.appendChild(tScript);
+		document.body.removeChild(tScript);
+	}
+	box.onblur=function(){
+		list.style.display="none";
+	}
+	function fly(myJson){
+		// console.log(myJson)
+		var data = myJson.s;
+		
+		var str = "";
+		for(var i=0; i<data.length; i++){
+			str += "<li><a href='https://www.baidu.com/s?wd="+data[i]+"' target='_blank'>"+data[i]+"</a></li>";
+		}
+		list.innerHTML = str;
+	}
+	btn.onclick=function(){
+		var tValue=txt.value;
+		window.open("https://www.baidu.com/s?wd="+tValue);
+	}
+</script>
+</html>
